@@ -32,6 +32,7 @@ class Connector
     * @var array
     */
     private $arrCurlOptions = array(
+      CURLOPT_SSLVERSION => 6,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_SSL_VERIFYHOST => false,
       CURLOPT_SSL_VERIFYPEER => false,
