@@ -265,6 +265,34 @@ class GarminConnect
     }
 
     /**
+     * Gets a list of activities from feed
+     *
+     * @param integer $intStart
+     * @param integer $intLimit
+     * @return mixed
+     * @throws UnexpectedResponseCodeException
+     */
+    public function getActivityListFromFeed($intStart = 0, $intLimit = 10)
+    {
+        $arrParams = array(
+            'start' => $intStart,
+            'limit' => $intLimit
+        );
+
+        $strResponse = $this->objConnector->get(
+            'https://connect.garmin.com/modern/proxy/activitylist-service/activities/comments/subscriptionFeed',
+            $arrParams,
+            true
+        );
+
+        if ($this->objConnector->getLastResponseCode() != 200) {
+            throw new UnexpectedResponseCodeException($this->objConnector->getLastResponseCode());
+        }
+        $objResponse = json_decode($strResponse);
+        return $objResponse;
+    }
+
+    /**
      * Create a workout from JSON data
      *
      * @param $data
